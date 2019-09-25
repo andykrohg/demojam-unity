@@ -8,6 +8,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Animator))]
 public class PlayerAvatar : MonoBehaviour, IPlayerAvatar
 {
+    public Vector3 respawnPoint;
     public UnityEvent OnDeath;
     public UnityEvent OnRespawn;
     public float respawnDelay = 5;
@@ -48,6 +49,6 @@ public class PlayerAvatar : MonoBehaviour, IPlayerAvatar
         collider.height = 1.6f;
         collider.center = new Vector3(0, 0.8f, 0);
 
-        gameController.RestartLevel();
+        transform.position = respawnPoint;
     }
 }
