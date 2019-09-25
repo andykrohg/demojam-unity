@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Networking;
 using Unity.InteractiveTutorials;
 
 public class Goal : MonoBehaviour
@@ -38,6 +39,19 @@ public class Goal : MonoBehaviour
     {
         if (collider.GetComponent<IPlayerAvatar>() != null)
         {
+            string team = "";
+            switch(collider.gameObject.name)
+            {
+                case "Player1":
+                    team = "red";
+                    break;
+                case "Player2":
+                    team = "white";
+                    break;
+
+            }
+            UnityWebRequest.Get("https://directive-producer-demojam-zombie.apps.akrohg-openshift.redhatgov.io/camel/rest/gameover/" + team).SendWebRequest();
+            Debug.Log("HERE");
             celebrationGameObject.SetActive(true);
             StartCoroutine(CameraZoom());
             OnWin.Invoke();
