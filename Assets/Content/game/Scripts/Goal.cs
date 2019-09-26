@@ -48,10 +48,8 @@ public class Goal : MonoBehaviour
                 case "Player2":
                     team = "white";
                     break;
-
             }
-            UnityWebRequest.Get("http://directive-producer:8080/camel/rest/gameover/" + team).SendWebRequest();
-            Debug.Log("HERE");
+            UnityWebRequest.Get("https://directive-producer-demojam-zombie.apps.akrohg-openshift.redhatgov.io/camel/rest/gameover/" + team).SendWebRequest();
             celebrationGameObject.SetActive(true);
             StartCoroutine(CameraZoom());
             OnWin.Invoke();
