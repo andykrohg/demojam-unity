@@ -50,7 +50,7 @@ public class Goal : MonoBehaviour
                     break;
 
             }
-            UnityWebRequest.Get("https://directive-producer-demojam-zombie.apps.akrohg-openshift.redhatgov.io/camel/rest/gameover/" + team).SendWebRequest();
+            UnityWebRequest.Get("http://directive-producer:8080/camel/rest/gameover/" + team).SendWebRequest();
             Debug.Log("HERE");
             celebrationGameObject.SetActive(true);
             StartCoroutine(CameraZoom());
