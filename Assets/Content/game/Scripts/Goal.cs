@@ -9,6 +9,7 @@ public class Goal : MonoBehaviour
 {
     public UnityEvent OnWin;
     public GameObject celebrationGameObject;
+    private bool gameOver = false;
 
     private Camera mainCamera;
 
@@ -37,24 +38,29 @@ public class Goal : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.GetComponent<IPlayerAvatar>() != null)
+        if (collider.GetComponent<IPlayerAvatar>() != null && ! gameOver)
         {
+            gameOver = true;
             string team = "";
             switch(collider.gameObject.name)
             {
                 case "Player1":
                     team = "red";
+                    GameObject.Find("Player2").SendMessage("Die");
                     break;
                 case "Player2":
                     team = "white";
+                    GameObject.Find("Player1").SendMessage("Die");
                     break;
             }
             UnityWebRequest.Get("https://directive-producer-demojam-zombie.apps.akrohg-openshift.redhatgov.io/camel/rest/gameover/" + team).SendWebRequest();
+
             celebrationGameObject.SetActive(true);
             StartCoroutine(CameraZoom());
             OnWin.Invoke();
             collider.GetComponent<Animator>().SetBool("Win", true);
-            collider.GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().enabled = false;
+            GameObject.Find("Player1").GetComponent<UnityStandardAssets.Characters.ThirdPerson.Player1Control>().enabled = false;
+            GameObject.Find("Player2").GetComponent<UnityStandardAssets.Characters.ThirdPerson.Player2Control>().enabled = false;
         }
     }
 }
