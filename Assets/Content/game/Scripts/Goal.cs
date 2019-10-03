@@ -52,8 +52,10 @@ public class Goal : MonoBehaviour
                     team = "white";
                     GameObject.Find("Player1").SendMessage("Die");
                     break;
+                default:
+                    break;
             }
-            UnityWebRequest.Get("https://directive-producer-demojam-zombie.apps.akrohg-openshift.redhatgov.io/camel/rest/gameover/" + team).SendWebRequest();
+            UnityWebRequest.Get("/camel/rest/gameover/" + team).SendWebRequest();
 
             celebrationGameObject.SetActive(true);
             StartCoroutine(CameraZoom());
