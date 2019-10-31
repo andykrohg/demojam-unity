@@ -12,6 +12,8 @@ public class PlayerAvatar : MonoBehaviour, IPlayerAvatar
     public UnityEvent OnDeath;
     public UnityEvent OnRespawn;
     public float respawnDelay = 5;
+    public float javascriptTimer = 0;
+    public string javascriptDirection = "";
 
     GameController gameController;
     Animator animator;
@@ -24,6 +26,12 @@ public class PlayerAvatar : MonoBehaviour, IPlayerAvatar
         collider = GetComponent<CapsuleCollider>();
         delay = new WaitForSeconds(respawnDelay);
         gameController = FindObjectOfType<GameController>();
+    }
+
+    public void JavaScriptMove(string direction)
+    {
+        javascriptTimer = 30;
+        javascriptDirection = direction;
     }
 
     public void Die()

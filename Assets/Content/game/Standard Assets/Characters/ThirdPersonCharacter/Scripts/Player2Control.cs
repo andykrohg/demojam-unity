@@ -34,21 +34,48 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
-            // read inputs
             float h = 0;
-            if (Input.GetKey(KeyCode.A)) {
-                h = -1;
-            }
-            if (Input.GetKey(KeyCode.D)) {
-                h = 1;
-            }
-            
             float v = 0;
-            if (Input.GetKey(KeyCode.S)) {
-                v = -1;
+            PlayerAvatar player = GetComponent<PlayerAvatar>();
+            if (player.javascriptTimer > 0)
+            {
+                player.javascriptTimer--;
+                switch (player.javascriptDirection)
+                {
+                    case "up":
+                        v = 1;
+                        break;
+                    case "down":
+                        v = -1;
+                        break;
+                    case "left":
+                        h = -1;
+                        break;
+                    case "right":
+                        h = 1;
+                        break;
+                }
             }
-            if (Input.GetKey(KeyCode.W)) {
-                v = 1;
+            else
+            {
+                //read inputs
+                if (Input.GetKey(KeyCode.A))
+                {
+                    h = -1;
+                }
+                if (Input.GetKey(KeyCode.D))
+                {
+                    h = 1;
+                }
+
+                if (Input.GetKey(KeyCode.S))
+                {
+                    v = -1;
+                }
+                if (Input.GetKey(KeyCode.W))
+                {
+                    v = 1;
+                }
             }
             bool crouch = Input.GetKey(KeyCode.C);
 
