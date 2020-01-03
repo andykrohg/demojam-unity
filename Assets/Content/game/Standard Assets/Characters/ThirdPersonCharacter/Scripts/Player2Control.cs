@@ -37,7 +37,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             float h = 0;
             float v = 0;
             PlayerAvatar player = GetComponent<PlayerAvatar>();
-            if (player.javascriptTimer > 0)
+            if (!Input.anyKey && player.javascriptTimer > 0)
             {
                 player.javascriptTimer--;
                 switch (player.javascriptDirection)
